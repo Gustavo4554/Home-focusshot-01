@@ -1,0 +1,47 @@
+.navbar {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 70px;
+  background: #080809;
+  color: white;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+  gap: 70px;
+}
+
+.actions button {
+  margin-left: 15px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 20px;
+}
+
+.login {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  background: #fff;
+  color: #000;
+}
+
+.get-started {
+   font-family: "Inter", sans-serif;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(197, 255, 76, 1), rgba(245, 77, 254, 1), rgba(85, 21, 199, 1));
+  color: #fff;
+  padding: 10px 40px; /* aumenta o espaço interno, deixando o botão mais largo */
+  border-radius: 8px;
+}
+
+.logo img { 
+    width: 85px;
+    height: fixed;
+ }
+ 

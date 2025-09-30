@@ -1,0 +1,50 @@
+.feedback-card {
+  margin-top: 20px;
+  font-family: "Inter";
+  min-width: 250px;
+  width: 250px;
+  height: 250px;
+  background: white;
+  color: black;
+  border-radius: 17px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* animação suave */
+}
+
+.feedback-card:hover {
+  transform: scale(1.05); /* aumenta 5% */
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2); /* opcional, dá destaque */
+}
+
+
+.card-top {
+  background: linear-gradient(90deg, rgba(197, 255, 76, 1), rgba(245, 77, 254, 1), rgba(85, 21, 199, 1));
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.card-top img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 1px solid black;
+  position: absolute;  /* permite colocar a imagem sobre o card-top */
+  bottom: -40px;       /* metade da altura da imagem para descer */
+}
+
+.card-body {
+  padding-top: 50px;  /* afasta o texto do topo do card */
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 14px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}

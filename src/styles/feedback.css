@@ -1,0 +1,23 @@
+.feedback {
+  background: #080809;
+  color: white;
+  padding: 80px 95px;
+  text-align: center;
+}
+
+.feedback h2 {
+  font-family: "Poppins";
+  font-size: 32px;
+  margin-bottom: 40px;
+}
+
+.feedback-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.feedback-list::-webkit-scrollbar {
+  display: none;
+}
