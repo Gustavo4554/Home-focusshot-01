@@ -1,27 +1,29 @@
 import "../styles/navbar.css";
 import logo from "../assets/logo.png";
 
-export default function Navbar() {
+export default function Navbar({ setContent }) {
   return (
     <nav className="navbar">
       <div className="logo">
         <img src={logo} alt="Logo" />
       </div>
       <ul className="menu">
-        <li>Home</li>
-        <li>Ranking</li>
-        <li>Play</li>
+        <li onClick={() => setContent("Home")}>Home</li>
+        <li onClick={() => setContent("Ranking")}>Ranking</li>
+        <li onClick={() => setContent("Play")}>Play</li>
       </ul>
       <div className="actions">
         <button
           className="login"
-          onClick={() => window.location.href = "/login"}
+          // MUDANÇA: Usa setContent para navegar para o estado "Register"
+          onClick={() => setContent("Register")}
         >
           Login
         </button>
         <button
           className="get-started"
-          onClick={() => window.location.href = "/get-started"}
+          // MUDANÇA: Usa setContent para navegar para o estado "Register"
+          onClick={() => setContent("Register")}
         >
           Get Started
         </button>
