@@ -1,7 +1,10 @@
+// src/components/TesteDeClique.jsx
+
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/TesteDeClique.css';
 
-const GAME_DURATION_SECONDS = 30; 
+// TAREFA 5: Duração do jogo diminuída para 10 segundos
+const GAME_DURATION_SECONDS = 10; 
 const ADD_CIRCLE_INTERVAL_MS = 300; 
 
 const getRankings = () => {
@@ -13,11 +16,9 @@ const saveRanking = (name, score) => {
     const rankings = getRankings();
     const newRanking = { name, score, date: new Date().toLocaleString() };
     rankings.push(newRanking);
-
     rankings.sort((a, b) => b.score - a.score);
     localStorage.setItem('clickRankings', JSON.stringify(rankings.slice(0, 10)));
 };
-
 
 const TesteDeClique = () => {
     const [circles, setCircles] = useState([]);
@@ -27,16 +28,16 @@ const TesteDeClique = () => {
     const [rankings, setRankings] = useState(getRankings());
     const [playerName, setPlayerName] = useState('');
 
-   
-
     const removeCircle = (id) => {
         setCircles(prevCircles => prevCircles.filter(circle => circle.id !== id));
     };
 
     const addCircle = useCallback(() => {
-      
-        const containerWidth = window.innerWidth * 0.8;
-        const containerHeight = window.innerHeight * 0.6;
+        const gameArea = document.querySelector('.game-area');
+        if (!gameArea) return;
+
+        const containerWidth = gameArea.clientWidth;
+        const containerHeight = gameArea.clientHeight;
         const circleSize = 50; 
 
         const newCircle = {
@@ -47,9 +48,10 @@ const TesteDeClique = () => {
         };
         setCircles(prevCircles => [...prevCircles, newCircle]);
     }, []);
-
-
     
+    // TAREFA 4: CORREÇÃO DO BUG DO TIMER
+    // Removido 'clickCount' e 'playerName' do array de dependências.
+    // O timer agora só depende do status do jogo e do tempo, e não reinicia a cada clique.
     useEffect(() => {
         if (gameStatus === 'jogando' && timeRemaining > 0) {
             const timer = setInterval(() => {
@@ -58,27 +60,20 @@ const TesteDeClique = () => {
             return () => clearInterval(timer);
         } else if (timeRemaining === 0 && gameStatus === 'jogando') {
             setGameStatus('encerrado');
-            setCircles([]); // Limpa a tela
-            // Salva a pontuação no ranking
+            setCircles([]); 
             if (playerName) {
                 saveRanking(playerName, clickCount);
-                setRankings(getRankings()); // Atualiza o ranking exibido
+                setRankings(getRankings());
             }
         }
-    }, [gameStatus, timeRemaining, clickCount, playerName]);
+    }, [gameStatus, timeRemaining]); // <-- DEPENDÊNCIAS CORRIGIDAS
 
-    // Efeito: Adicionar novos círculos (só quando estiver jogando)
     useEffect(() => {
         if (gameStatus === 'jogando') {
-            const interval = setInterval(() => {
-                addCircle();
-            }, ADD_CIRCLE_INTERVAL_MS); // USA O NOVO INTERVALO RÁPIDO
+            const interval = setInterval(addCircle, ADD_CIRCLE_INTERVAL_MS);
             return () => clearInterval(interval);
         }
     }, [gameStatus, addCircle]);
-
-
-    // --- Funções de Controle do Jogo ---
 
     const startGame = () => {
         if (!playerName) {
@@ -86,7 +81,7 @@ const TesteDeClique = () => {
             return;
         }
         setClickCount(0);
-        setTimeRemaining(GAME_DURATION_SECONDS); // USA A NOVA DURAÇÃO
+        setTimeRemaining(GAME_DURATION_SECONDS);
         setCircles([]);
         setGameStatus('jogando');
     };
@@ -98,14 +93,11 @@ const TesteDeClique = () => {
         }
     };
 
-
-    // --- Renderização do Jogo ---
-
     const renderGameArea = () => {
         if (gameStatus === 'pronto') {
             return (
                 <button className="start-button" onClick={startGame}>
-                    Iniciar Jogo (30s de Duração)
+                    Iniciar Jogo ({GAME_DURATION_SECONDS}s de Duração)
                 </button>
             );
         }
@@ -121,7 +113,6 @@ const TesteDeClique = () => {
             );
         }
         
-        // Status: Jogando
         return circles.map(circle => (
             <div
                 key={circle.id}
@@ -137,11 +128,9 @@ const TesteDeClique = () => {
         ));
     };
 
-
     return (
         <div className="game-container">
             <h2>Teste de Agilidade de Cliques</h2>
-            
             <div className="controls">
                 <input
                     type="text"
@@ -157,16 +146,13 @@ const TesteDeClique = () => {
                     Cliques: <strong>{clickCount}</strong>
                 </p>
             </div>
-
             <div className="game-area">
                 {renderGameArea()}
             </div>
-
             <div className="ranking-section">
                 <h3>Ranking dos Melhores Cliques</h3>
                 <ol className="ranking-list">
                     {rankings.map((rank, index) => (
-                        // A linha do jogador atual é destacada se o jogo estiver encerrado e o nome corresponder
                         <li key={index} className={rank.name === playerName && gameStatus === 'encerrado' ? 'current-player' : ''}>
                             <span>{index + 1}. {rank.name}</span>
                             <span>{rank.score} Cliques</span>

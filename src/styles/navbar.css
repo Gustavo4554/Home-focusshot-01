@@ -1,3 +1,5 @@
+/* src/styles/navbar.css */
+
 .navbar {
   font-family: "Inter", sans-serif;
   font-weight: 600;
@@ -5,43 +7,52 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 70px;
+  padding: 15px 70px; /* Aumentei um pouco o padding vertical para acomodar os botões */
   background: #080809;
   color: white;
+  position: relative; 
+}
+
+.logo img { 
+  width: 50px;
+  height: auto;
   cursor: pointer;
 }
 
 .menu {
   display: flex;
   list-style: none;
-  gap: 70px;
+  gap: 20px; /* Diminuí o espaço para os botões caberem melhor */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.actions button {
-  margin-left: 15px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-}
-
-.login {
-  font-family: "Inter", sans-serif;
+/* --- AJUSTE PRINCIPAL AQUI --- */
+.menu li {
+  cursor: pointer;
+  padding: 10px 25px; /* Adiciona espaçamento interno */
+  border-radius: 30px; /* Deixa as bordas arredondadas */
+  font-size: 16px; /* Diminui um pouco a fonte para caber melhor */
   font-weight: 600;
-  background: #fff;
-  color: #000;
-}
-
-.get-started {
-   font-family: "Inter", sans-serif;
-  font-weight: 600;
-  background: linear-gradient(90deg, rgba(197, 255, 76, 1), rgba(245, 77, 254, 1), rgba(85, 21, 199, 1));
   color: #fff;
-  padding: 10px 40px; /* aumenta o espaço interno, deixando o botão mais largo */
-  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  /* O mesmo fundo gradiente dos botões da home */
+  background: linear-gradient(90deg, rgba(197, 255, 76, 1), rgba(245, 77, 254, 1), rgba(85, 21, 199, 1));
 }
 
-.logo img { 
-    width: 50px;
-    height: fixed;
- }
- 
+.menu li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(245, 77, 254, 0.4); /* Adiciona uma sombra suave no hover */
+  color: #fff; /* Garante que a cor do texto não mude */
+}
+
+/* Adicione ao final de src/styles/navbar.css */
+.user-info {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  position: absolute; /* Adicionado para não empurrar o menu */
+  right: 70px; /* Alinha com o padding da navbar */
+}
