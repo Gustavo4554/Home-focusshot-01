@@ -1,5 +1,5 @@
 import "../styles/hero.css";
-import mascot from "../assets/mascot.png"; // sua imagem do boneco
+import mascot from "../assets/mascot.png"; 
 
 export default function Hero() {
   return (

@@ -1,14 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/TesteDeClique.css';
 
-// ========================================
-// CONFIGURAÇÕES ATUALIZADAS
-// ========================================
-const GAME_DURATION_SECONDS = 30; // AGORA SÃO 30 SEGUNDOS
-const ADD_CIRCLE_INTERVAL_MS = 300; // CÍRCULOS APARECEM MUITO MAIS RÁPIDO
-// ========================================
+const GAME_DURATION_SECONDS = 30; 
+const ADD_CIRCLE_INTERVAL_MS = 300; 
 
-// Funções utilitárias para o ranking
 const getRankings = () => {
     const rankings = localStorage.getItem('clickRankings');
     return rankings ? JSON.parse(rankings) : [];
@@ -18,7 +13,7 @@ const saveRanking = (name, score) => {
     const rankings = getRankings();
     const newRanking = { name, score, date: new Date().toLocaleString() };
     rankings.push(newRanking);
-    // Ordena por score (do maior para o menor) e pega os 10 melhores
+
     rankings.sort((a, b) => b.score - a.score);
     localStorage.setItem('clickRankings', JSON.stringify(rankings.slice(0, 10)));
 };
@@ -28,18 +23,18 @@ const TesteDeClique = () => {
     const [circles, setCircles] = useState([]);
     const [clickCount, setClickCount] = useState(0);
     const [timeRemaining, setTimeRemaining] = useState(GAME_DURATION_SECONDS);
-    const [gameStatus, setGameStatus] = useState('pronto'); // 'pronto', 'jogando', 'encerrado'
+    const [gameStatus, setGameStatus] = useState('pronto'); 
     const [rankings, setRankings] = useState(getRankings());
     const [playerName, setPlayerName] = useState('');
 
-    // --- Lógica de Criação e Remoção de Círculos ---
+   
 
     const removeCircle = (id) => {
         setCircles(prevCircles => prevCircles.filter(circle => circle.id !== id));
     };
 
     const addCircle = useCallback(() => {
-        // Cálculo de dimensões (mantido para evitar erros de limite)
+      
         const containerWidth = window.innerWidth * 0.8;
         const containerHeight = window.innerHeight * 0.6;
         const circleSize = 50; 
@@ -54,9 +49,7 @@ const TesteDeClique = () => {
     }, []);
 
 
-    // --- Efeitos do Jogo (Timer e Aparecimento de Círculos) ---
-
-    // Efeito: Timer do jogo
+    
     useEffect(() => {
         if (gameStatus === 'jogando' && timeRemaining > 0) {
             const timer = setInterval(() => {

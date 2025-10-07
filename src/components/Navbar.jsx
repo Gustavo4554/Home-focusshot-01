@@ -15,14 +15,14 @@ export default function Navbar({ setContent }) {
       <div className="actions">
         <button
           className="login"
-          // MUDANÇA: Usa setContent para navegar para o estado "Register"
+          
           onClick={() => setContent("Register")}
         >
           Login
         </button>
         <button
           className="get-started"
-          // MUDANÇA: Usa setContent para navegar para o estado "Register"
+         
           onClick={() => setContent("Register")}
         >
           Get Started
